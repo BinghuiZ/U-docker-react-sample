@@ -1,0 +1,23 @@
+version: '3'
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # do not map node_modules on the host, as it will overwrite the container's
+      - /app/node_modules
+      # map the rest of the app to the host so that changes are reflected in the container
+      - .:/app
+  tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      # do not map node_modules on the host, as it will overwrite the container's
+      - /app/node_modules
+      # map the rest of the app to the host so that changes are reflected in the container
+      - .:/app
+    command: ["npm", "run", "test"]
