@@ -7,3 +7,15 @@ before_install:
 
 script:
   - docker run -e CI=true bhzhongudemy/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "udemy-docker-react-travisci"
+  env: "Udemy-docker-react-travisci-env"
+  bucket_name: "elasticbeanstalk-us-east-2-056251561631"
+  bucket_path: "udemy-docker-react-travisci"
+  on:
+    branch: main
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
